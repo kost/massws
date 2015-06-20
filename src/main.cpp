@@ -34,6 +34,10 @@ int main (int argc, char *argv[]) {
 	    QCoreApplication::translate("main", "Show help."));
 	parser.addOption(optionHelp);
 
+	QCommandLineOption optionIgnoreSSL(QStringList() << "s" << "ignoressl",
+	    QCoreApplication::translate("main", "Ignore SSL verification errors"));
+	parser.addOption(optionIgnoreSSL);
+
 	QCommandLineOption optionOutputFN(QStringList() << "o" << "output",
 		QCoreApplication::translate("main", "Save output to <filename>."),
    		QCoreApplication::translate("main", "filename"));
@@ -72,6 +76,9 @@ int main (int argc, char *argv[]) {
 
 	Screenshot ss;
 
+	if (parser.isSet(optionIgnoreSSL)) {
+		ss.ignoreSSL=1;
+	}
 	if (parser.isSet(optionWidth)) {
 		ss.sizex=parser.value(optionWidth).toInt();
 	}

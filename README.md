@@ -14,16 +14,22 @@ Take screenshot of web page
 massws -o screenshot.png http://en.wikipedia.org
 ```
 
+Take screenshot of web page, ignore SSL errors:
+
+```
+massws -s https://en.wikipedia.org 
+```
+
 Take screenshot of web page in 800x600
 
 ```
 massws -x 800 -y 600 -o screenshot.png http://en.wikipedia.org
 ```
 
-Take screenshot of list of URLs in list-of-urls.txt:
+Take screenshot of list of URLs in list-of-urls.txt (also ignore TLS/SSL errors):
 
 ```
-cat list-of-urls.txt | xargs -i massws -x 800 -y 600 {}
+cat list-of-urls.txt | xargs -i massws -s -x 800 -y 600 {}
 ```
 
 # Notice 

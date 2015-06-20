@@ -6,12 +6,29 @@ Screenshot::Screenshot()
 	sizey = 768;
 	isfinished=0;
 	myapp = NULL;
+	ignoreSSL=0;
 }
 
 void Screenshot::takeshot(const QUrl &url) {
 	page.mainFrame()->load(url);
 	connect(&page, SIGNAL(loadFinished(bool)), this, SLOT(render()));
 	connect(this, SIGNAL(finished()), this, SLOT(haveFinished()));
+	// for handling SSL errors
+	connect(page.networkAccessManager(),SIGNAL(sslErrors(QNetworkReply*, const QList<QSslError> & )),
+		this, SLOT(handleSslErrors(QNetworkReply*, const QList<QSslError> & )));
+}
+
+void Screenshot::handleSslErrors(QNetworkReply* reply, const QList<QSslError> &errors) {
+	qDebug() << "handleSslErrors: ";
+	foreach (QSslError e, errors) {
+		qDebug() << "ssl error: " << e;
+	}
+	if (ignoreSSL) {
+		qWarning() << "SSL/TLS verification error: Ignoring";
+		reply->ignoreSslErrors();
+	} else {
+		qCritical() << "SSL/TLS verification error: Quitting";
+	}
 }
 
 void Screenshot::haveFinished() {
