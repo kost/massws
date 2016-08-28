@@ -5,7 +5,7 @@ compiler:
 before_install:
   - sudo add-apt-repository --yes ppa:canonical-qt5-edgers/ubuntu1204-qt5
   - sudo apt-get update -qq
-  - sudo apt-get install qtbase5-dev qtdeclarative5-dev libqt5webkit5-dev libsqlite3-dev
+  - sudo apt-get install qtbase5-dev qtdeclarative5-dev libqt5webkit5 libgstreamer-plugins-base1.0-dev libqt5webkit5-dev libsqlite3-dev
   - sudo apt-get install qt5-default qttools5-dev-tools
 script:
   - qmake massws.pro
