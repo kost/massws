@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/kost/massws.png)](https://travis-ci.org/kost/massws)
+
 # massws
 Mass Web Screenshot Tool - command line based
 
